@@ -1,0 +1,92 @@
+cps 1
+
+d1
+$ degradeBy 0.2
+$ every 4 (0.5 <~)
+$ every 5 (|+| speed "0.5")
+$ cat [
+  sound "rattlin:10 stick:6",
+  sound "stick:0*8",
+  sound "rattlin:8 stick:4",
+  sound "[cabassa:4 cabassa:0] stick:3"
+]
+-- # speed 0.4
+# pan sine
+
+d2
+$ every 5 (|+| speed "1.5")
+$ every 3 (rev)
+$ randcat [
+  sound "~ housevocal:0 ~ ~",
+  sound "~ housevocal:4 ~ ~",
+  sound "~ ~ housevocal:6 ~",
+  sound "~ ~ housevocal:16 ~",
+  sound "~ ~ housevocal:3 ~"
+]
+# gain "0.9"
+# speed 0.8
+
+d3
+$ degradeBy 0.4
+$ every 4 (0.5 <~)
+$ every 5 (|+| speed "0.3 0.5 0.2")
+$ cat [
+  sound "rattlin:1*6",
+  sound "stick:6",
+  sound "[stick:15 stick:18](3,11)",
+  sound "stick:8"
+]
+# speed 0.8
+# delay 0.4
+# pan sine
+
+
+d8
+$ cat [
+  sound "dbstkick:26([3 5],8)",
+  sound "dbstkick:14(3,11)",
+  sound "dbstkick:26([3 5],8)",
+  sound "dbstkick:26(3,14)"
+]
+-- # nudge "0.9"
+# gain "1.1"
+
+
+-- getNow >>= \now ->
+-- d8 $ (pure now) ~> seqPLoop [
+--   (0, 4, append' (sound "dbstkick:26([3 5],8)") (sound "dbstkick:14(3,11)")),
+--   (4, 8, append' (sound "dbstkick:26([3 5],8)") (sound "dbstkick:26(3,14)"))
+-- ]
+-- -- # nudge "0.9"
+-- # gain "1.1"
+
+d9
+$ every 5 (0.05 <~)
+$ cat [
+  sound "[~ stick:10 stick:11](3,11)",
+  -- sound "[stick:10 ~ stick:5](3,11)"
+  sound "[~ stick:10 stick:11](3,11)",
+  sound "[stick:5 stick:10 stick:11 stick:14](3,11)"
+]
+# gain "1.1"
+
+d6
+-- $ every 4 (0.125 ~>)
+-- $ every 3 (0.25 <~)
+$ e 3 11
+$ every 2 (0.125 <~)
+$ striate 4 ( sound "[dbstbass:18 ~]/2" )
+# gain "1.1"
+
+
+d1 silence
+d2 silence
+d3 silence
+d4 silence
+d5 silence
+d6 silence
+d7 silence
+d8 silence
+d9 silence
+
+hush
